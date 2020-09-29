@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Fuel {
     public static void main(String[] args){
 
-        double price = 47.5;
+        double price = 55.5;
         Scanner in = new Scanner(System.in);
         System.out.println("Please enter the number of liters: ");
         int lit = in.nextInt();
