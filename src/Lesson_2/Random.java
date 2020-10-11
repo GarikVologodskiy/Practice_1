@@ -34,5 +34,6 @@ public class Random {
                 break;
             }
         }
+        in.close();
     }
 }
