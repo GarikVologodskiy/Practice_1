@@ -6,6 +6,12 @@ public class Array2x {
         matrix[0][0] = 50;
         matrix[0][1] = 20;
         matrix[0][2] = 30;
+        matrix[1][0] = 40;
+        matrix[1][1] = 10;
+        matrix[1][2] = 25;
+        matrix[2][0] = 60;
+        matrix[2][1] = 70;
+        matrix[2][2] = 90;
         /*for (int i = 0; i < matrix.length; i++) {
             System.out.println("печатаем " + i + " строку матрицы");
             for (int j = 0; j < matrix[i].length; j++) {
@@ -26,4 +32,3 @@ public class Array2x {
         }
     }
 }
-

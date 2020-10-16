@@ -5,7 +5,11 @@ import java.util.Collections;
 public class Sort {
     public static void main(String[] args) {
         int temp;
-        int arr[] = {16, 4, 5, 1, 34, 43, 11, 9, 0, 500, 501};
+        int arr[];
+        arr = new int [25];
+        for (int i = 0; i < arr.length; i++){
+            arr[i] = (int)(Math.random() * 12);
+        }
         System.out.println("Original array: ");
         initprint(arr);
         bubblesort(arr);

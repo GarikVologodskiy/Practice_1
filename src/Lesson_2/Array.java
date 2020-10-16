@@ -7,7 +7,8 @@ public class Array {
         int length = num.length;
         System.out.println(length);
         for (int i = 0; i < num.length; i++) {
-            System.out.println("idx=" + i +";"+" value=" + num[i] +";");
+            /*System.out.println("idx=" + i +";"+" value=" + num[i] +";");*/
+            System.out.print(num[i] + "; ");
         }
     }
 }
