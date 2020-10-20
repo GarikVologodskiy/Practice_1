@@ -13,7 +13,7 @@ public class Random {
         int prev = 0, cur = 0;
 
         while (random_num != manual_num) {
-            prev = Math.abs(random_num - 0); /* 50 */
+            prev = Math.abs(random_num - prev); /* 50 */
             cur = Math.abs(prev - manual_num); /* 10 */
             if (prev < cur) {
                 System.out.println("Hot!");

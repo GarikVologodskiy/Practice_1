@@ -31,7 +31,7 @@ public class Sort {
     public static void bubblesort(int[] bsort) {
         System.out.println("Bubble sorted array: ");
         for (int j = 0; j < bsort.length; j++) {
-            for (int n = 0; n < bsort.length; n++) {
+            for (int n = j + 1; n < bsort.length; n++) {
                 if (bsort[j] >= bsort[n]) {
                     int temp = bsort[j];
                     bsort[j] = bsort[n];
