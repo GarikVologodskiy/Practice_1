@@ -30,7 +30,7 @@ public class Sort {
     // Output bubble sorted array
     public static void bubblesort(int[] bsort) {
         System.out.println("Bubble sorted array: ");
-        for (int j = 0; j < bsort.length; j++) {
+        for (int j = 0; j < bsort.length-1; j++) {
             for (int n = j + 1; n < bsort.length; n++) {
                 if (bsort[j] >= bsort[n]) {
                     int temp = bsort[j];

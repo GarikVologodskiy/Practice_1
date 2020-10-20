@@ -22,7 +22,7 @@ public class Array2x {
         func(matrix);
     }
 
-    public static void func(int[]... mat) {
+    public static void func(int[][] mat) {
         for (int i = 0; i < mat.length; i++) {
             System.out.println("печатаем " + i + " строку матрицы");
             for (int j = 0; j < mat[i].length; j++) {
