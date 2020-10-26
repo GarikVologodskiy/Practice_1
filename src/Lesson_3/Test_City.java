@@ -8,6 +8,7 @@ public class Test_City {
 
         Taragona tar = new Taragona("Tarragona", 900000, 43.45, 1240, 654, false, "Hose Gonzales Ritorio");
         tar.Info();
-        tar.getCoeffEco();
+        System.out.println(tar.getName());
+        System.out.println(tar.getCoeffEco());
     }
 }
