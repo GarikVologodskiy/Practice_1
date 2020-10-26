@@ -1,80 +1,84 @@
 package Lesson_3;
 
 public class City {
-    private String Name;
-    private Integer Population;
-    private Double Size;
-    private Integer Streets;
-    private Integer BikePathsLength;
+    private String name;
+    private int population;
+    private Double size;
+    private int streets;
+    private int bikePathsLength;
     private boolean isAfrican;
-    private String Mayor;
+    private String mayor;
 
-    public City(String name, Integer population, Double size, Integer streets, Integer bikePathsLength, boolean isAfrican, String mayor, String coeffEco) {
-    }
-
-    public City(String name, Integer population, Double size, Integer streets, Integer bikePathsLength, boolean isAfrican, String mayor) {
+    public City(String name, int population, Double size, int streets, int bikePathsLength, boolean isAfrican, String mayor) {
+        this.name = name;
+        this.population = population;
+        this.size = size;
+        this.streets = streets;
+        this.bikePathsLength = bikePathsLength;
+        this.isAfrican = isAfrican;
+        this.mayor = mayor;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
-    public Integer getPopulation() {
-        return Population;
+    public int getPopulation() {
+        return population;
     }
 
-    public void setPopulation(Integer population) {
-        this.Population = population;
+    public void setPopulation(int population) {
+        this.population = population;
     }
 
     public Double getSize() {
-        return Size;
+        return size;
     }
 
-    public void setSize(Double size) {
-        this.Size = size;
+    public void setSize(double size) {
+        this.size = size;
     }
 
     public Integer getStreets() {
-        return Streets;
+        return streets;
     }
 
-    public void setStreets(Integer streets) {
-        this.Streets = streets;
+    public void setStreets(int streets) {
+        this.streets = streets;
     }
 
     public Integer getBikePathsLength() {
-        return BikePathsLength;
+        return bikePathsLength;
     }
 
-    public void setBikePathsLength(Integer bikePathsLength) {
-        this.BikePathsLength = bikePathsLength;
+    public void setBikePathsLength(int bikePathsLength) {
+        this.bikePathsLength = bikePathsLength;
     }
 
     public boolean isAfrican() {
         return isAfrican;
     }
 
-    public void setAfrican(boolean African) {
-        this.isAfrican = African;
+    public void setAfrican(boolean african) {
+        this.isAfrican = isAfrican;
     }
 
     public String getMayor() {
-        return Mayor;
+        return mayor;
     }
 
     public void setMayor(String mayor) {
-        this.Mayor = mayor;
+        this.mayor = mayor;
     }
 
     public void Info() {
-        System.out.println("Name is " + getName() + "Population = "
-                + getPopulation() + "Size (km) = " + getSize() + "Number of streets = "
-                + getStreets() + "Bike paths length (km) = " + getBikePathsLength()
-                + "Is African city = " + isAfrican() + "Your Mayor is " + getMayor());
+        System.out.println("Name is " + getName() + "; " + "Population = "
+                + getPopulation() + "; " + "Size (km) = " + getSize() + "; " + "Number of streets = "
+                + getStreets() + "; " + "Bike paths length (km) = " + getBikePathsLength() + "; "
+                + "Is African city = " + isAfrican() + "; " + "Your Mayor is " + getMayor() + "; ");
     }
 }
