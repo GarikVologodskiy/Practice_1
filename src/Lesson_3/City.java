@@ -3,13 +3,13 @@ package Lesson_3;
 public class City {
     private String name;
     private int population;
-    private Double size;
+    private double size;
     private int streets;
     private int bikePathsLength;
     private boolean isAfrican;
     private String mayor;
 
-    public City(String name, int population, Double size, int streets, int bikePathsLength, boolean isAfrican, String mayor) {
+    public City(String name, int population, double size, int streets, int bikePathsLength, boolean isAfrican, String mayor) {
         this.name = name;
         this.population = population;
         this.size = size;
@@ -35,7 +35,7 @@ public class City {
         this.population = population;
     }
 
-    public Double getSize() {
+    public double getSize() {
         return size;
     }
 
@@ -73,6 +73,17 @@ public class City {
 
     public void setMayor(String mayor) {
         this.mayor = mayor;
+    }
+
+    @Override
+    public String toString() {
+        return  "name='" + name + '\'' +
+                ", population=" + population +
+                ", size=" + size +
+                ", streets=" + streets +
+                ", bikePathsLength=" + bikePathsLength +
+                ", isAfrican=" + isAfrican +
+                ", mayor='" + mayor + '\'';
     }
 
     public void Info() {
