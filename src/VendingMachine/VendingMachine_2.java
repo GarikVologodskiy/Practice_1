@@ -6,11 +6,31 @@ import static VendingMachine.VendingMachine_2.Drinks.*;
 
 public class VendingMachine_2 {
     enum Drinks {
-        ABSENT("Absinthe", 6.20), COCA("Coca-Cola", 0.40), COFFEE("Coffee", 1.20), MILK("Milk", 0.90), SODA("Soda", 0.10), SPRITE("Sprite", 0.50), TEA("Tea", 0.35);
+        ABSENT(1, "Absinthe", 6.20),
+        COCA(2,"Coca-Cola", 0.40),
+        COFFEE(3,"Coffee", 1.20),
+        MILK(4,"Milk", 0.90),
+        SODA(5,"Soda", 0.10),
+        SPRITE(6,"Sprite", 0.50),
+        TEA(7,"Tea", 0.35);
+
         private String name;
         private double price;
+        private int idx;
 
-        Drinks(String name, double price) {
+        Drinks(int idx) {
+            this.idx = idx;
+        }
+
+        public int getIdx() {
+            return idx;
+        }
+
+        public void setIdx(int idx) {
+            this.idx = idx;
+        }
+
+        Drinks(int idx, String name, double price) {
             this.name = name;
             this.price = price;
         }
@@ -77,32 +97,19 @@ public class VendingMachine_2 {
             System.out.println("Wrong! Try it again");
             insert.nextInt();
         }
-        return i;
+        return -1;
     }
 
-    public static double Price (double item) {
-        if (item == 1) {
-            return ABSENT.getPrice();
+    /*В цикле перебираем значения enum
+    * Сравниваем значение на входе со значением индекса enum
+    * Если равенство - возвращаем цену*/
+    public static double getPriceByIndex (int item) {
+        for (Drinks drinks : Drinks.values()) {
+            if (drinks.getIdx() == item) {
+                return drinks.getPrice();
+            }
         }
-        if (item == 2) {
-            return COCA.getPrice();
-        }
-        if (item == 3) {
-            return COFFEE.getPrice();
-        }
-        if (item == 4) {
-            return MILK.getPrice();
-        }
-        if (item == 5) {
-            return SODA.getPrice();
-        }
-        if (item == 6) {
-            return SPRITE.getPrice();
-        }
-        if (item == 7) {
-            return TEA.getPrice();
-        }
-        return item;
+        return -1;
     }
 
     public static double Money (double cost) {
