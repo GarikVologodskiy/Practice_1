@@ -1,18 +1,18 @@
 package VendingMachine;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static VendingMachine.VendingMachine_2.Drinks.*;
 
 public class VendingMachine_2 {
     enum Drinks {
         ABSENT(1, "Absinthe", 6.20),
-        COCA(2,"Coca-Cola", 0.40),
-        COFFEE(3,"Coffee", 1.20),
-        MILK(4,"Milk", 0.90),
-        SODA(5,"Soda", 0.10),
-        SPRITE(6,"Sprite", 0.50),
-        TEA(7,"Tea", 0.35);
+        COCA(2, "Coca-Cola", 0.40),
+        COFFEE(3, "Coffee", 1.20),
+        MILK(4, "Milk", 0.90),
+        SODA(5, "Soda", 0.10),
+        SPRITE(6, "Sprite", 0.50),
+        TEA(7, "Tea", 0.35);
 
         private String name;
         private double price;
@@ -33,6 +33,7 @@ public class VendingMachine_2 {
         Drinks(int idx, String name, double price) {
             this.name = name;
             this.price = price;
+            this.idx = idx;
         }
 
         public String getName() {
@@ -51,6 +52,7 @@ public class VendingMachine_2 {
             return String.valueOf(price);
         }
     }
+
     enum Coins {
         COIN1(0.1), COIN2(0.2), COIN3(0.4), COIN4(0.5), COIN5(1);
         private double value;
@@ -69,8 +71,9 @@ public class VendingMachine_2 {
         }
     }
 
-    public static int getMenu() {
+    public static int getMenu() throws MyException {
         int i = 1;
+        int ItemMax = Drinks.values().length;
 
         System.out.println("!!!DRINKS!!!");
         System.out.println("------------------------------------");
@@ -80,24 +83,28 @@ public class VendingMachine_2 {
             i += 1;
         }
 
-        System.out.println();
-        System.out.println("Available coins only: ");
+        System.out.println("\nAvailable coins only: ");
         for (Coins coins : Coins.values()) {
             System.out.print("$" + coins.getValue() + "; ");
         }
 
-        System.out.println();
-        System.out.println();
-        System.out.println("Make your choice: ");
+        System.out.println("\n\nMake your choice: ");
         Scanner insert = new Scanner(System.in);
-        try {
-            int input = insert.nextInt();
-            return input;
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong! Try it again");
-            insert.nextInt();
+        int input;
+
+        do {
+            while (!insert.hasNextInt()) {
+                System.out.println("It's not a number!");
+                System.out.println("Make your choice again: ");
+                insert.next();
+            }
+            input = insert.nextInt();
+        } while (input <= 0);
+
+        if (input > ItemMax) {
+            throw new MyException("Wrong number!");
         }
-        return -1;
+        return input;
     }
 
     /*В цикле перебираем значения enum
@@ -113,22 +120,32 @@ public class VendingMachine_2 {
     }
 
     public static double Money (double cost) {
-        double coin = 0;
+        double coin;
         Scanner insert = new Scanner(System.in);
         System.out.println("Please insert " + "$" + cost + " here ->");
 
-        try {
-            coin = insert.nextDouble();
-
-            while (coin < cost) {
-                System.out.println("Still need: " + (cost - coin));
-                coin = coin + insert.nextDouble();
+        do {
+            while (!insert.hasNextDouble()) {
+                System.out.println("This is an unresolved coin!");
+                System.out.println("Try it again: ");
+                insert.next();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong! Try it again");
-            insert.nextDouble();
+            coin = insert.nextDouble();
+        } while (coin <= 0);
+
+        while (coin < cost) {
+            System.out.println("Still need: " + (cost - coin));
+            coin = coin + insert.nextDouble();
         }
         System.out.println("Thank you! Bye!");
         return coin - cost;
+    }
+
+    public static class MyException extends Throwable {
+        public MyException() {
+        }
+
+        public MyException(String s) {
+        }
     }
 }
