@@ -1,18 +1,39 @@
 package VendingMachine;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static VendingMachine.VendingMachine_2.Drinks.*;
 
 public class VendingMachine_2 {
     enum Drinks {
-        ABSENT("Absinthe", 6.20), COCA("Coca-Cola", 0.40), COFFEE("Coffee", 1.20), MILK("Milk", 0.90), SODA("Soda", 0.10), SPRITE("Sprite", 0.50), TEA("Tea", 0.35);
+        ABSENT(1, "Absinthe", 6.20),
+        COCA(2, "Coca-Cola", 0.40),
+        COFFEE(3, "Coffee", 1.20),
+        MILK(4, "Milk", 0.90),
+        SODA(5, "Soda", 0.10),
+        SPRITE(6, "Sprite", 0.50),
+        TEA(7, "Tea", 0.35);
+
         private String name;
         private double price;
+        private int idx;
 
-        Drinks(String name, double price) {
+        Drinks(int idx) {
+            this.idx = idx;
+        }
+
+        public int getIdx() {
+            return idx;
+        }
+
+        public void setIdx(int idx) {
+            this.idx = idx;
+        }
+
+        Drinks(int idx, String name, double price) {
             this.name = name;
             this.price = price;
+            this.idx = idx;
         }
 
         public String getName() {
@@ -31,6 +52,7 @@ public class VendingMachine_2 {
             return String.valueOf(price);
         }
     }
+
     enum Coins {
         COIN1(0.1), COIN2(0.2), COIN3(0.4), COIN4(0.5), COIN5(1);
         private double value;
@@ -49,8 +71,9 @@ public class VendingMachine_2 {
         }
     }
 
-    public static int getMenu() {
+    public static int getMenu() throws MyException {
         int i = 1;
+        int ItemMax = Drinks.values().length;
 
         System.out.println("!!!DRINKS!!!");
         System.out.println("------------------------------------");
@@ -60,68 +83,69 @@ public class VendingMachine_2 {
             i += 1;
         }
 
-        System.out.println();
-        System.out.println("Available coins only: ");
+        System.out.println("\nAvailable coins only: ");
         for (Coins coins : Coins.values()) {
             System.out.print("$" + coins.getValue() + "; ");
         }
 
-        System.out.println();
-        System.out.println();
-        System.out.println("Make your choice: ");
+        System.out.println("\n\nMake your choice: ");
         Scanner insert = new Scanner(System.in);
-        try {
-            int input = insert.nextInt();
-            return input;
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong! Try it again");
-            insert.nextInt();
+        int input;
+
+        do {
+            while (!insert.hasNextInt()) {
+                System.out.println("It's not a number!");
+                System.out.println("Make your choice again: ");
+                insert.next();
+            }
+            input = insert.nextInt();
+        } while (input <= 0);
+
+        if (input > ItemMax) {
+            throw new MyException("Wrong number!");
         }
-        return i;
+        return input;
     }
 
-    public static double Price (double item) {
-        if (item == 1) {
-            return ABSENT.getPrice();
+    /*В цикле перебираем значения enum
+    * Сравниваем значение на входе со значением индекса enum
+    * Если равенство - возвращаем цену*/
+    public static double getPriceByIndex (int item) {
+        for (Drinks drinks : Drinks.values()) {
+            if (drinks.getIdx() == item) {
+                return drinks.getPrice();
+            }
         }
-        if (item == 2) {
-            return COCA.getPrice();
-        }
-        if (item == 3) {
-            return COFFEE.getPrice();
-        }
-        if (item == 4) {
-            return MILK.getPrice();
-        }
-        if (item == 5) {
-            return SODA.getPrice();
-        }
-        if (item == 6) {
-            return SPRITE.getPrice();
-        }
-        if (item == 7) {
-            return TEA.getPrice();
-        }
-        return item;
+        return -1;
     }
 
     public static double Money (double cost) {
-        double coin = 0;
+        double coin;
         Scanner insert = new Scanner(System.in);
         System.out.println("Please insert " + "$" + cost + " here ->");
 
-        try {
-            coin = insert.nextDouble();
-
-            while (coin < cost) {
-                System.out.println("Still need: " + (cost - coin));
-                coin = coin + insert.nextDouble();
+        do {
+            while (!insert.hasNextDouble()) {
+                System.out.println("This is an unresolved coin!");
+                System.out.println("Try it again: ");
+                insert.next();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong! Try it again");
-            insert.nextDouble();
+            coin = insert.nextDouble();
+        } while (coin <= 0);
+
+        while (coin < cost) {
+            System.out.println("Still need: " + (cost - coin));
+            coin = coin + insert.nextDouble();
         }
         System.out.println("Thank you! Bye!");
         return coin - cost;
+    }
+
+    public static class MyException extends Throwable {
+        public MyException() {
+        }
+
+        public MyException(String s) {
+        }
     }
 }
