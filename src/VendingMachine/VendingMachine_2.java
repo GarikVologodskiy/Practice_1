@@ -92,18 +92,24 @@ public class VendingMachine_2 {
         Scanner insert = new Scanner(System.in);
         int input;
 
-        do {
-            while (!insert.hasNextInt()) {
-                System.out.println("It's not a number!");
-                System.out.println("Make your choice again: ");
-                insert.next();
-            }
-            input = insert.nextInt();
-        } while (input <= 0);
-
-        if (input > ItemMax) {
-            throw new MyException("Wrong number!");
+        try {
+            do {
+                while (!insert.hasNextInt()) {
+                    System.out.println("It's not a number!");
+                    System.out.println("Make your choice again: ");
+                    insert.next();
+                }
+                input = insert.nextInt();
+                if (input > ItemMax) {
+                    throw new MyException("Wrong number!");
+                }
+            } while (input <= 0);
+            return input;
         }
+            catch (MyException e) {
+                System.out.println("Make your choice again: ");
+                input = insert.nextInt();
+            }
         return input;
     }
 
