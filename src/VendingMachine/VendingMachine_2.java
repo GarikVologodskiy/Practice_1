@@ -1,6 +1,4 @@
 package VendingMachine;
-import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -71,7 +69,7 @@ public class VendingMachine_2 {
         }
     }
 
-    public static int getMenu() throws MyException {
+    public static int getMenu() throws ItemException {
         int i = 1;
         int ItemMax = Drinks.values().length;
 
@@ -92,19 +90,25 @@ public class VendingMachine_2 {
         Scanner insert = new Scanner(System.in);
         int input;
 
-        do {
-            while (!insert.hasNextInt()) {
-                System.out.println("It's not a number!");
-                System.out.println("Make your choice again: ");
-                insert.next();
-            }
-            input = insert.nextInt();
-        } while (input <= 0);
-
-        if (input > ItemMax) {
-            throw new MyException("Wrong number!");
+        try {
+            do {
+                while (!insert.hasNextInt()) {
+                    System.out.println("It's not a number!");
+                    System.out.println("Make your choice again: ");
+                    insert.next();
+                }
+                input = insert.nextInt();
+                if (input > ItemMax) {
+                    throw new ItemException("Wrong number!");
+                }
+            } while (input <= 0);
+            return input;
         }
-        return input;
+            catch (ItemException e) {
+                System.out.println("Make your choice again: ");
+                input = insert.nextInt();
+            }
+        return -1;
     }
 
     /*В цикле перебираем значения enum
@@ -119,33 +123,45 @@ public class VendingMachine_2 {
         return -1;
     }
 
-    public static double Money (double cost) {
+    public static double Money (double cost) throws CoinException {
         double coin;
         Scanner insert = new Scanner(System.in);
         System.out.println("Please insert " + "$" + cost + " here ->");
 
-        do {
-            while (!insert.hasNextDouble()) {
-                System.out.println("This is an unresolved coin!");
-                System.out.println("Try it again: ");
-                insert.next();
-            }
-            coin = insert.nextDouble();
-        } while (coin <= 0);
+        try {
+            do {
+                while (!insert.hasNextDouble()) {
+                    System.out.println("This is an unresolved coin!");
+                    System.out.println("Try it again: ");
+                    insert.next();
+                }
+                coin = insert.nextDouble();
+                if (coin <= 0) {
+                    throw new CoinException("Incorrect input!");
+                }
+            } while (coin <= 0);
 
-        while (coin < cost) {
-            System.out.println("Still need: " + (cost - coin));
-            coin = coin + insert.nextDouble();
+            while (coin < cost) {
+                System.out.println("Still need: " + (cost - coin));
+                coin = coin + insert.nextDouble();
+            }
+            System.out.println("Thank you! Bye!");
+            return coin - cost;
+        } catch (CoinException e) {
+            System.out.println("Enter a positive number: ");
+            coin = insert.nextDouble();
         }
         System.out.println("Thank you! Bye!");
-        return coin - cost;
+        return -1;
     }
 
-    public static class MyException extends Throwable {
-        public MyException() {
+    public static class ItemException extends Throwable {
+        public ItemException(String s) {
         }
+    }
 
-        public MyException(String s) {
+    public static class CoinException extends Throwable {
+        public CoinException(String s) {
         }
     }
 }
